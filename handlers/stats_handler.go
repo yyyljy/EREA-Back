@@ -120,7 +120,7 @@ func GetDashboardStats(c *gin.Context) {
 
 // GetPropertyStats retrieves property-specific statistics
 func GetPropertyStats(c *gin.Context) {
-	propertyID := c.Param("property_id")
+	propertyID := c.Param("id")
 	redis := config.GetRedisClient()
 	ctx := config.GetContext()
 
@@ -197,7 +197,7 @@ func GetPropertyStats(c *gin.Context) {
 
 // GetUserStats retrieves user-specific statistics
 func GetUserStats(c *gin.Context) {
-	userID := c.Param("user_id")
+	userID := c.Param("id")
 	redis := config.GetRedisClient()
 	ctx := config.GetContext()
 

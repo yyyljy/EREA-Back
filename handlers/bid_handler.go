@@ -135,7 +135,7 @@ func PlaceBid(c *gin.Context) {
 
 // GetBidHistory retrieves bid history for a property
 func GetBidHistory(c *gin.Context) {
-	propertyID := c.Param("property_id")
+	propertyID := c.Param("id")
 	redis := config.GetRedisClient()
 	ctx := config.GetContext()
 
@@ -205,7 +205,7 @@ func GetBidHistory(c *gin.Context) {
 
 // GetUserBids retrieves all bids for a specific user
 func GetUserBids(c *gin.Context) {
-	userID := c.Param("user_id")
+	userID := c.Param("id")
 	redis := config.GetRedisClient()
 	ctx := config.GetContext()
 

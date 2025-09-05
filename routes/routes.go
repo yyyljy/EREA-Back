@@ -45,8 +45,8 @@ func SetupRoutes() *gin.Engine {
 			users.GET("/:id", handlers.GetUser)        // 특정 사용자 조회
 			users.PUT("/:id", handlers.UpdateUser)     // 사용자 정보 업데이트
 			users.DELETE("/:id", handlers.DeleteUser)  // 사용자 삭제
-			users.GET("/:user_id/bids", handlers.GetUserBids)  // 사용자 입찰 내역
-			users.GET("/:user_id/stats", handlers.GetUserStats) // 사용자 통계
+			users.GET("/:id/bids", handlers.GetUserBids)  // 사용자 입찰 내역
+			users.GET("/:id/stats", handlers.GetUserStats) // 사용자 통계
 		}
 
 		// 부동산 속성 관련 엔드포인트
@@ -58,9 +58,9 @@ func SetupRoutes() *gin.Engine {
 			properties.GET("/:id", handlers.GetProperty)          // 특정 부동산 조회
 			properties.PUT("/:id", handlers.UpdateProperty)       // 부동산 정보 업데이트
 			properties.DELETE("/:id", handlers.DeleteProperty)    // 부동산 삭제
-			properties.GET("/:property_id/auction", handlers.GetPropertyAuction) // 부동산 경매 정보
-			properties.GET("/:property_id/bids", handlers.GetBidHistory)         // 부동산 입찰 내역
-			properties.GET("/:property_id/stats", handlers.GetPropertyStats)     // 부동산 통계
+			properties.GET("/:id/auction", handlers.GetPropertyAuction) // 부동산 경매 정보
+			properties.GET("/:id/bids", handlers.GetBidHistory)         // 부동산 입찰 내역
+			properties.GET("/:id/stats", handlers.GetPropertyStats)     // 부동산 통계
 		}
 
 		// 입찰 관련 엔드포인트

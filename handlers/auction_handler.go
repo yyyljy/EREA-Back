@@ -363,7 +363,7 @@ func GetAuctionStats(c *gin.Context) {
 
 // GetPropertyAuction retrieves auction for a specific property
 func GetPropertyAuction(c *gin.Context) {
-	propertyID := c.Param("property_id")
+	propertyID := c.Param("id")
 	redis := config.GetRedisClient()
 	ctx := config.GetContext()
 

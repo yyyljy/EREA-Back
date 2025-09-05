@@ -16,7 +16,7 @@ func main() {
 	router := routes.SetupRoutes()
 
 	// 서버 시작
-	port := ":8080"
+	port := ":8000"
 	log.Printf("서버가 포트 %s에서 시작됩니다...", port)
 	log.Printf("헬스 체크: http://localhost%s/health", port)
 	log.Printf("API 문서: http://localhost%s/api/v1/users", port)
