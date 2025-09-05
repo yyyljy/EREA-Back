@@ -45,6 +45,63 @@ func SetupRoutes() *gin.Engine {
 			users.GET("/:id", handlers.GetUser)        // 특정 사용자 조회
 			users.PUT("/:id", handlers.UpdateUser)     // 사용자 정보 업데이트
 			users.DELETE("/:id", handlers.DeleteUser)  // 사용자 삭제
+			users.GET("/:user_id/bids", handlers.GetUserBids)  // 사용자 입찰 내역
+			users.GET("/:user_id/stats", handlers.GetUserStats) // 사용자 통계
+		}
+
+		// 부동산 속성 관련 엔드포인트
+		properties := v1.Group("/properties")
+		{
+			properties.POST("/", handlers.CreateProperty)         // 부동산 생성
+			properties.GET("/", handlers.GetAllProperties)        // 모든 부동산 조회
+			properties.GET("/status", handlers.GetPropertiesByStatus) // 상태별 부동산 조회
+			properties.GET("/:id", handlers.GetProperty)          // 특정 부동산 조회
+			properties.PUT("/:id", handlers.UpdateProperty)       // 부동산 정보 업데이트
+			properties.DELETE("/:id", handlers.DeleteProperty)    // 부동산 삭제
+			properties.GET("/:property_id/auction", handlers.GetPropertyAuction) // 부동산 경매 정보
+			properties.GET("/:property_id/bids", handlers.GetBidHistory)         // 부동산 입찰 내역
+			properties.GET("/:property_id/stats", handlers.GetPropertyStats)     // 부동산 통계
+		}
+
+		// 입찰 관련 엔드포인트
+		bids := v1.Group("/bids")
+		{
+			bids.POST("/", handlers.PlaceBid)           // 입찰하기
+			bids.GET("/", handlers.GetTopBids)          // 상위 입찰 조회
+			bids.GET("/:id", handlers.GetBid)           // 특정 입찰 조회
+			bids.PUT("/:id/status", handlers.UpdateBidStatus) // 입찰 상태 업데이트
+		}
+
+		// 경매 관련 엔드포인트
+		auctions := v1.Group("/auctions")
+		{
+			auctions.POST("/", handlers.CreateAuction)     // 경매 생성
+			auctions.GET("/", handlers.GetActiveAuctions)  // 활성 경매 조회
+			auctions.GET("/:id", handlers.GetAuction)      // 특정 경매 조회
+			auctions.PUT("/:id/close", handlers.CloseAuction) // 경매 종료
+			auctions.GET("/stats", handlers.GetAuctionStats)  // 경매 통계
+		}
+
+		// 통계 및 대시보드 엔드포인트
+		stats := v1.Group("/stats")
+		{
+			stats.GET("/dashboard", handlers.GetDashboardStats) // 대시보드 통계
+			stats.GET("/realtime", handlers.GetRealtimeStats)   // 실시간 통계
+		}
+
+		// WebSocket 엔드포인트
+		ws := v1.Group("/ws")
+		{
+			ws.GET("/auction", handlers.HandleWebSocket)         // WebSocket 연결
+			ws.GET("/clients", handlers.GetConnectedClients)     // 연결된 클라이언트 수
+		}
+
+		// 데모 데이터 엔드포인트
+		demo := v1.Group("/demo")
+		{
+			demo.POST("/create", handlers.CreateDemoData)    // 데모 데이터 생성
+			demo.DELETE("/clear", handlers.ClearDemoData)    // 데모 데이터 삭제
+			demo.GET("/status", handlers.GetDemoStatus)      // 데모 데이터 상태 확인
 		}
 	}
 
