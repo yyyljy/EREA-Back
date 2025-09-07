@@ -106,6 +106,13 @@ func SetupRoutes() *gin.Engine {
 			ws.GET("/clients", handlers.GetConnectedClients)     // 연결된 클라이언트 수
 		}
 
+		// EERC 토큰 관련 엔드포인트
+		eerc := v1.Group("/eerc")
+		{
+			eerc.POST("/mint", handlers.MintEERCTokens)       // EERC 토큰 민팅 (ZK proof 포함)
+			eerc.POST("/transfer", handlers.TransferEERCTokens) // EERC 토큰 전송 (ZK proof 포함)
+		}
+
 		// 데모 데이터 엔드포인트
 		demo := v1.Group("/demo")
 		{
