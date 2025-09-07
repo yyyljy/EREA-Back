@@ -72,6 +72,16 @@ func SetupRoutes() *gin.Engine {
 			bids.PUT("/:id/status", handlers.UpdateBidStatus) // 입찰 상태 업데이트
 		}
 
+		// 보증금 관련 엔드포인트
+		deposits := v1.Group("/deposits")
+		{
+			deposits.POST("/", handlers.CreateDeposit)           // 보증금 납부
+			deposits.GET("/", handlers.GetAllDeposits)           // 모든 보증금 조회
+			deposits.GET("/user/:userId", handlers.GetUserDeposits) // 사용자별 보증금 조회
+			deposits.GET("/:id", handlers.GetDeposit)            // 특정 보증금 조회
+			deposits.PUT("/:id/status", handlers.UpdateDepositStatus) // 보증금 상태 업데이트
+		}
+
 		// 경매 관련 엔드포인트
 		auctions := v1.Group("/auctions")
 		{

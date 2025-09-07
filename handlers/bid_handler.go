@@ -354,10 +354,19 @@ func UpdateBidStatus(c *gin.Context) {
 
 // GetTopBids retrieves top bids across all properties
 func GetTopBids(c *gin.Context) {
-	limitStr := c.DefaultQuery("limit", "10")
-	limit, err := strconv.Atoi(limitStr)
-	if err != nil {
-		limit = 10
+	limitStr := c.DefaultQuery("limit", "")
+	var limit int
+	var hasLimit bool
+	
+	if limitStr != "" {
+		var err error
+		limit, err = strconv.Atoi(limitStr)
+		if err != nil {
+			limit = 10
+		}
+		hasLimit = true
+	} else {
+		hasLimit = false // limit이 지정되지 않으면 모든 bid 반환
 	}
 
 	redis := config.GetRedisClient()
@@ -396,8 +405,8 @@ func GetTopBids(c *gin.Context) {
 		return bids[i].Amount > bids[j].Amount
 	})
 
-	// Limit results
-	if len(bids) > limit {
+	// Limit results (only if limit is specified)
+	if hasLimit && len(bids) > limit {
 		bids = bids[:limit]
 	}
 
